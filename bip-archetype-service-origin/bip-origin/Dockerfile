@@ -1,4 +1,4 @@
-FROM java:8
+FROM serverjre:8
 
 # Add a volume pointing to /tmp
 VOLUME /tmp
