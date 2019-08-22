@@ -1,4 +1,4 @@
-FROM serverjre:8
+FROM docker-registry.default.svc:5000/openshift/serverjre:8
 
 # Add a volume pointing to /tmp
 VOLUME /tmp
