@@ -274,4 +274,5 @@ objects:
       spring.cloud.vault.kv.application-name: "bip-project-namespace-prefix/bip-origin"
       spring.profiles.active: ${SPRING_PROFILES}
       spring.cloud.consul.config.prefix: "config/bip-project-namespace-prefix/${CONFIG_BRANCH}"
+ 
       

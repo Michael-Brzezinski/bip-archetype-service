@@ -1,15 +1,13 @@
 # What is this repository for?
 
-This is a suite of BIP projects for
-
-<span color="red">add project purpose here</span>
+This is a suite of BIP projects for :exclamation:add project purpose here:exclamation:
 
 
 # Project Breakdown
 
-1. <span color="red">add github URLs to any partner projects, and brief description here</span>
+1. :exclamation:add github URLs to any partner projects, and brief description here:exclamation:
 
-2. [bip-origin](https://github.ec.va.gov/EPMO/__artifactId__/tree/master/__artifactId__): Service implementation project. This project demonstrates the recommended design patterns, configuration pointers, and coding examples. It shows how to produce a documented endpoint, how to register the app with Consul, how to use secrets from Vault, how to implement a Hystrix circuit breaker, how to get and use loggers, etc. The design consists of three layers:
+2. [bip-origin](https://github.ec.va.gov/EPMO/__artifactId__/tree/master/__artifactId__): Service implementation project. This project :exclamation:description of project function:exclamation:. The design consists of three layers:
 
   - The Provider (or "web") layer contains the REST endpoints and model, JSR 303 annotations in the resource class and the model, and the use of an adapter class to transform models and call the service interface.
   - The Domain (or "service") layer contains business validation, business logic, client helpers to call Partner services and process the returned data, and exception handling.
@@ -37,10 +35,11 @@ The versions for the configured BIP Framework can be reviewed in the following f
 
 The fastest way to get set up is to visit the [Quick Start Guide](https://github.ec.va.gov/EPMO/bip-reference-person/blob/master/docs/quick-start-guide.md).
 
+# Local Development
+
+Instructions on running the application on a local workstation can be found in the [local-dev README](local-dev)
+
 # Contribution guidelines
 
 If you or your team wants to contribute to this repository, then fork the repository and follow the steps to create a PR for our upstream repo to review and commit the changes: [Creating a pull request from a fork](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)
 
-# Local Development
-
-Instructions on running the application on a local workstation can be found in the [local-dev README](local-dev)

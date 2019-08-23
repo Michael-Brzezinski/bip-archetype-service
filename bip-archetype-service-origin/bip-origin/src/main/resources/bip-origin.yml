@@ -193,7 +193,7 @@ hystrix:
 ###############################################################################
 #Property configuration to enable or disable JWT security for the service calls 
 #JWT security is enabled by default. So to disable it you have to
-#set the environment system property bip.origine.security.jwt.enabled=false
+#set the environment system property bip.origin.security.jwt.enabled=false
 ###############################################################################
 bip.framework:
   security:

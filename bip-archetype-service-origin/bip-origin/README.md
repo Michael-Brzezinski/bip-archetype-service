@@ -7,14 +7,20 @@ The service application consists of:
 - Exposure of an API with request validation and exception management.
 - Service capabilities to process requests and acquire data from external partners.
 
-The responsibilities and capabilities of the service application are <span color="red">add information here</span>.
+The responsibilities and capabilities of the service application are :exclamation:add information here:exclamation:.
+
+## How to add the dependency
+The service application project is one of the sub-project `<modules>` in a reactor project.  Add the service project to the reactor POM.
+```xml
+	<module>bip-origin</module>
+```
 
 ## Diagrams
 
 #### Class Diagram
-<span color="red">add class diagrams to /docs/images, and add html img tags to refer to them</span>
+:exclamation:add class diagrams to /docs/images, and add html img tags to refer to them:exclamation:
 
 #### Sequence Diagrams
 
-<span color="red">add sequence diagrams to /docs/images, and add html img tags to refer to them</span>
+:exclamation:add sequence diagrams to /docs/images, and add html img tags to refer to them:exclamation:
 

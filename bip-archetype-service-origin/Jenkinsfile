@@ -1,18 +1,26 @@
 mavenGitflowPipeline {
 
-    //Sonar Github Credentials - Settings this value will configure the pipeline to use this credential
-    //to connect to github during sonar PR scans, adding comments for any violations found
-    sonarGithubCredentials = 'dsva-github'
+    /***************************************************************************
+    * Sonar GitHub Credentials - Settings this value will configure the pipeline 
+    * to use this credential to connect to GitHub during sonar PR scans, adding 
+    * comments for any violations found
+    *************************************************************************/
+    // sonarGithubCredentials = 'dsva-github'
 
-    //Github credential ID to use for releases
-    githubCredentials = 'epmo-github'
+    /***************************************************************************
+    * GitHub credential ID to use for releases
+    *************************************************************************/
+    // githubCredentials = 'epmo-github'
+    
+    //Specify to use the fortify maven plugin, instead of the Ant task to execute the fortify scan
+    useFortifyMavenPlugin = true
 
     /*************************************************************************
     * Docker Build Configuration
     *************************************************************************/
 
     // Map of Image Names to sub-directory in the repository. If this is value is non-empty, 
-    // the build pipepline will build all images specified in the map. The example below will build an image tagged as 
+    // the build pipeline will build all images specified in the map. The example below will build an image tagged as 
     // `bip-origin:latest` using the Docker context of `./bip-origin`.
     dockerBuilds = [
         'bip-origin': 'bip-origin'
@@ -32,23 +40,21 @@ mavenGitflowPipeline {
     * This section should be omitted if you are using Helm for deployments on
     * Kubernetes.
     *************************************************************************/
-    //Path to your applications Openshift deployment template
+    //Path to your applications OpenShift deployment template
     deploymentTemplates = ["template.yaml"]
     
-    //Deployment parameters used to configure your Openshift deployment template
+    //Deployment parameters used to configure your OpenShift deployment template
     deploymentParameters = [
         'APP_NAME': 'bip-origin',
         'IMAGE': 'bip-origin'
     ]
 
-    
-
     /*************************************************************************
     * Helm Deployment Configuration
     *
     * This section only applied to builds running on the Kubernetes platform.
-    * This section should be omitted if you are using Openshift templates for
-    * deployment on Openshift.
+    * This section should be omitted if you are using OpenShift templates for
+    * deployment on OpenShift.
     *************************************************************************/
 
     //Git Repository that contains your Helm chart

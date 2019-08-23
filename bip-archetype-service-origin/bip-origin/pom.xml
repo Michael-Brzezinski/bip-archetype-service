@@ -19,7 +19,7 @@
     <description>Origin Service Implementation for BIP Project</description>
     
     <properties>
-    	<bip-framework.version>2.0.2</bip-framework.version>
+		<bip-framework.version>2.0.3</bip-framework.version>
     </properties>
     
     <dependencies>
@@ -253,8 +253,13 @@
 
                                     <apiPackage>gov.va.bip.origin.api</apiPackage>
                                     <modelPackage>gov.va.bip.origin.api.model.v1</modelPackage>
-                                    <importMappings></importMappings>
-                                    <importMappings>ProviderResponse=gov.va.bip.framework.rest.provider.ProviderResponse,ProviderRequest=gov.va.bip.framework.rest.provider.ProviderRequest,Message=gov.va.bip.framework.rest.provider.Message,Person=gov.va.bip.framework.security.model.Person,ProviderTransferObjectMarker=gov.va.bip.framework.transfer.ProviderTransferObjectMarker</importMappings>
+                                    <importMappings>
+										ProviderResponse=gov.va.bip.framework.rest.provider.ProviderResponse,
+										ProviderRequest=gov.va.bip.framework.rest.provider.ProviderRequest,
+										Message=gov.va.bip.framework.rest.provider.Message,
+										Person=gov.va.bip.framework.security.model.Person,
+										ProviderTransferObjectMarker=gov.va.bip.framework.transfer.ProviderTransferObjectMarker
+                                    </importMappings>
 
                                     <addCompileSourceRoot>false</addCompileSourceRoot>
                                     <configHelp>false</configHelp>

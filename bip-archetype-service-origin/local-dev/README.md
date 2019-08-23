@@ -1,6 +1,8 @@
 # Local Development Environment
 
-This local development environment is strickly for demonstration and local testing of the BIP Platform.
+This local development environment is strictly for demonstration and local testing of the BIP Platform and Services.
+
+The local-dev folder also contains tools to assist with preparing to submit [SwA Code Reviews](../docs/fortify-and-swa.md).
 
 For information about the BIP Framework and Reference Application, see this [README](https://github.ec.va.gov/EPMO/bip-reference-person).
 
@@ -51,7 +53,7 @@ If you run the app in default profile, it uses emebedded redis server for cachin
 
 #### 3. local-int profile:
 
-If you run the app in local-int profile, follow the below steps.
+If you run the app in local-int (docker) profile, follow the below steps.
 
 - Find the container id of the redis using `docker ps -a`
 - Log into the container `docker exec -i -t <container-id> sh`

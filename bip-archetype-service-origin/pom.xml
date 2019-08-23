@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>gov.va.bip.framework</groupId>
 		<artifactId>bip-framework-parentpom</artifactId>
-		<version>2.0.2</version>
+		<version>2.0.3</version>
 		<relativePath />
 	</parent>
 
@@ -32,4 +32,152 @@
 	  	</repository>
 	</repositories>
 	
+	<properties>
+		<!-- intentionally using old ant-contrib because newer version doesn't work with maven-antrun-plugin -->
+		<ant-contrib.version>20020829</ant-contrib.version>
+		<!-- the maven phase to bind fortify-sca -->
+		<fortify.bind.phase>initialize</fortify.bind.phase>
+		<fortify-merge-input-filepath>${project.basedir}/${project.artifactId}.fpr</fortify-merge-input-filepath>
+		<fortify-merge-output-filepath>${project.basedir}/${project.artifactId}.fpr</fortify-merge-output-filepath>
+	</properties>
+	
+	<profiles>
+		<!--
+			The fortify-sca profile runs the aggregate scan for all modules.
+			If a project team believes that the fortify-sca profile requires ANY changes,
+			please consult with the BIP Framework development team.
+			Base Fortify requirements for all project modules are declared in bip-framework-parentpom.
+		-->
+		<profile>
+			<id>fortify-sca</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Don't run tests from SCA - profile should be run as: "mvn install -P fortify-sca" -->
+				<skipTests>true</skipTests>
+				<skipITs>true</skipITs>
+				<skipPerfTests>true</skipPerfTests>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.fortify.sca.plugins.maven</groupId>
+						<artifactId>sca-maven-plugin</artifactId>
+						<version>${sca-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>fortify-sca-clean</id>
+								<phase>${fortify.bind.phase}</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+								<configuration>
+									<aggregate>true</aggregate>
+								</configuration>
+							</execution>
+							<execution>
+								<id>fortify-sca-translate</id>
+								<phase>${fortify.bind.phase}</phase>
+								<goals>
+									<goal>translate</goal>
+								</goals>
+								<configuration>
+									<!-- run scans against all reactor projects -->
+									<aggregate>true</aggregate>
+									<!-- exclude inttest and perftest, as they don't go to prod -->
+									<excludes>**/bip-*-inttest/*,**/bip-*-perftest/*</excludes>
+								</configuration>
+							</execution>
+							<execution>
+								<id>fortify-sca-scan</id>
+								<phase>${fortify.bind.phase}</phase>
+								<goals>
+									<goal>scan</goal>
+								</goals>
+								<configuration>
+									<!-- run scans against all reactor projects -->
+									<aggregate>true</aggregate>
+									<!-- exclude inttest and perftest, as they don't go to prod -->
+									<excludes>**/bip-*-inttest/*,**/bip-*-perftest/*</excludes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>fortify-merge</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Don't run tests from SCA - profile should be run as: "mvn install -P fortify-sca" -->
+				<skipTests>true</skipTests>
+				<skipITs>true</skipITs>
+				<skipPerfTests>true</skipPerfTests>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<!-- do not run on child modules, just on reactor -->
+						<inherited>false</inherited>
+						<dependencies>
+							<!-- provides ANT branch tags (if/then/else) -->
+							<dependency>
+								<groupId>ant-contrib</groupId>
+								<artifactId>ant-contrib</artifactId>
+								<version>${ant-contrib.version}</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<id>fortify-merge</id>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<!-- add the ant tasks from ant-contrib -->
+										<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+											<classpath refid="maven.dependency.classpath" />
+										</taskdef>
+										<echo>+++ Executing ANT target for Fortify copy/merge</echo>
+										<echo>+++ Checking file availability of ${fortify-merge-input-filepath}</echo>
+										<if>
+											<available file="${fortify-merge-input-filepath}" />
+											<then>
+												<echo>+++ Found file: ${fortify-merge-input-filepath}</echo>
+												<echo>+++ Executing Fortify merge operation with:</echo>
+												<echo>      FPRUtility -merge</echo>
+												<echo>        -project ${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr</echo>
+												<echo>        -source ${fortify-merge-input-filepath}</echo>
+												<echo>        -f ${fortify-merge-output-filepath}</echo>
+												<exec executable="FPRUtility">
+													<arg
+														line="-merge -project ${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr -source ${fortify-merge-input-filepath} -f ${fortify-merge-output-filepath}" />
+												</exec>
+											</then>
+											<else>
+												<echo>+++ Not-found file: ${fortify-merge-input-filepath}</echo>
+												<echo>+++ Executing file copy with:</echo>
+												<echo>      copy</echo>
+												<echo>        ${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr</echo>
+												<echo>        ${fortify-merge-output-filepath}</echo>
+												<copy file="${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr"
+													tofile="${fortify-merge-output-filepath}" />
+											</else>
+										</if>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
