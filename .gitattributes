@@ -1,0 +1,9 @@
+*.yml merge=union
+*.yaml merge=union
+*.java merge=union
+*.xml merge=union
+*.properties merge=union
+*.md merge=union
+*.sh merge=union
+*. merge=union
+.* merge=union
