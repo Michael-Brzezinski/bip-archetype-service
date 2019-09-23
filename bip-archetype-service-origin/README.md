@@ -2,7 +2,7 @@
 
 This project is the origin (or "source") project from which a new BIP Service project can be created.
 
-This Origin project should never be deployed to any server. It is a tool to ease the creation of a new service project. 
+This Origin project should never be deployed to any server. It is a tool to ease the creation of a new service project.
 
 This project is dependent on the libraries from **BIP framework a.k.a Blue** for auto configuration, common shared libraries, parent pom maven configuration and functional testing library. These framework artifacts are included in the pom.xml files of the origin project modules.
 
@@ -19,11 +19,12 @@ Some capabilities that are provided in [bip-reference-person](https://github.ec.
 Included capabilities:
 
 - Files for Jenkins, Helm, docker config of vault, consul, etc.
-- Core code for basic application configuration, spring Application class, REST API provider, service impl, model transformation, validation, logging (including auditing), and exception handling.
+- Core code for basic application configuration, spring Application class, REST API provider, service impl, model transformation, validation, logging, file uploads and downloads, database reads and writes (including auditing), and exception handling.
+- Branches in source control are used to provide optional components (e.g database configuration, SOAP partner integration).
 
 Omitted capabilities:
 
-- Partner Clients. For reasons of code reuse and consistent implementation, it is suggested that partner client code should reside in separate repositories to allow for consumption by other BIP projects. At a time when sufficient need becomes evident, partner client Origin project(s) may be created.
+- SOAP Partner Clients. For reasons of code reuse and consistent implementation, it is suggested that partner client code should reside in separate repositories to allow for consumption by other BIP projects. At a time when sufficient need becomes evident, partner client Origin project(s) may be created.
 
   - The Feign Client code (REST client) and config have been removed.
   - The `bip-reference-partner-person` SOAP service project has been removed. It is worth noting that the service Helper class remains in the project as a template for SOAP client calls.
@@ -33,6 +34,42 @@ Omitted capabilities:
 See the [root README](../README.md).
 
 # Updating the Origin Project
+
+The Origin project is
+
+## Understanding Components and the Master Branches
+
+To provide optional capabilities when creating a project, the git repo contains branches that represent a component that could be added to a project. The component branch includes the necessary configuration, code, and documentation for that capability. At the time of this writing, there are three branches:
+
+- `master` contains the core project skeleton configuration and code
+
+- `master-db` is a child of `master` that contains
+
+ 	- everything from `master`
+
+	- the configuration, code, and documentation for projects that require relational database access
+
+- `master-partner` is a child of `master` that contains
+
+	- everything from `master`
+
+	- the configuration, code, and documentation for projects that will use SOAP partner client JAR(s)
+
+The addition of new components will require
+
+- A new "master-[option]" branch created from `master`
+
+- Necessary component changes in the new branch - remember that any changes to the generic core code should be done in `master` and merged up
+
+- Review of the `gen.sh` script to add any necessary capabilities to accommodate the new module
+
+Some good maintenance rules of thumb:
+
+- Changes to the generic core code should be made in the `master` branch, and merged up to the child branches.
+
+- Changes to branch-specific code should never be "merged down" to master.
+
+- Due to the nature of the script, testing can only be performed on the `master*` branches. As a result, it is recommended that maintenance updates to the archetype be scheduled around times in which new teams and projects are being on-boarded.
 
 ## Before starting modifications
 
@@ -47,9 +84,12 @@ The Origin project should only need to be updated when something new or differen
 - dependency technologies have changed (e.g. during upgrades of spring-boot, hystrix, etc)
 - enhancements or new capabilities have been added to BIP services that should be part of the standard service project offering
 
-## Making Changes to the Origin Project
+## Making Changes to the Origin Project Branches
 
 1. Ensure that the `bip-archetype-service-origin` project builds, that the project can be run as a spring-boot app, and that the [localhost swagger page](http://localhost:8080/swagger-ui.html) opens and responds as expected.
-2. Make the desired changes, testing the project as you would with any spring-boot application.
+
+2. Make the desired changes in the appropriate `master*` branch.
+
 3. Remember that the new project README is in the `bip-archetype-service-origin/archive` folder, so make any necessary changes to that file.
+
 4. Use the `./gen.sh` script to generate the MyTest project (using the default `gen.properties`), testing the generated project as you would with any spring-boot application.

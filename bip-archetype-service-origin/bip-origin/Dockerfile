@@ -11,3 +11,5 @@ ADD ${JAR_FILE} bip-origin.jar
 
 # Run the jar file 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/bip-origin.jar"]
+
+ADD ./scripts/wait-for-it.sh /wait-for-it.sh

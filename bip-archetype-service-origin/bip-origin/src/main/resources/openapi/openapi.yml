@@ -3,8 +3,11 @@ openapi: 3.0.1
 info:
    version: 0.0.1-SNAPSHOT
    title: BIP Origin Service v1 API Documentation
-   description: An OpenAPI 3.0 specification for Origin Service
+   description: An OpenAPI 3.0 specification for Origin Service. Documentation is generated using OpenAPI Specification version 3.0.
    termsOfService: https://developer.va.gov/terms-of-service
+   license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
 tags:
   - name: Origin
     description: Origin Resource
@@ -15,10 +18,10 @@ paths:
     post:
       tags:
       - Origin
-      summary: Retrieve Origin information by PID.
+      summary: Retrieve Origin information by PID from mocked partner sample service.
       description: Will return a sample info object based on search by PID.
       operationId: sampleByPid
-      requestBody: 
+      requestBody:
         description: sampleRequest
         required: true
         content:
@@ -33,29 +36,13 @@ paths:
               schema:
                 '$ref': '#/components/schemas/SampleResponse'
         '400':
-          description: There was an error encountered processing the Request.  Response
-            will contain a  "messages" element that will provide further information
-            on the error.  This request shouldn't be retried until corrected.
-          content:
-            application/problem+json:
-              schema:
-                '$ref': '#/components/schemas/ProviderResponse'
+           '$ref': '#/components/responses/400'
+        '401':
+           '$ref': '#/components/responses/401'
         '403':
-          description: The request is not authorized.  Please verify credentials used
-            in the request.
-          content:
-            application/problem+json:
-              schema:
-                '$ref': '#/components/schemas/ProviderResponse'
+           '$ref': '#/components/responses/403'
         '500':
-          description: There was an error encountered processing the Request.  Response
-            will contain a  "messages" element that will provide further information
-            on the error.  Please retry.  If problem persists, please contact support
-            with a copy of the Response.
-          content:
-            application/problem+json:
-              schema:
-                '$ref': '#/components/schemas/ProviderResponse'
+           '$ref': '#/components/responses/500'
       security:
         - bearerAuth: []
       deprecated: false
@@ -68,9 +55,15 @@ paths:
       description: Get a JWT bearer token with 'person' data. Include MVI correlationIds
         if required by the target API.
       operationId: getTokenUsingPOST
-      requestBody: 
+      requestBody:
         description: |-
-          Identity information for the authenticated user. CorrelationIds may be null or an empty array if the target API does not require it. Otherwise, correlationIds must be the list as retrieved from MVI: <table style=\"table-layout:auto;width:700px;text-align:left;background-color:#efefef;\"><tr><th>Common ID Name</th><th>Example ID</th><th>Type</th><th>Source</th><th>Issuer</th><th>Status</th><th </tr><tr><td>Participant ID (PID)</td><td>12345678</td><td>PI</td><td>200CORP</td><td>USVBA</td><td>A</td></tr><tr><td>File Number</td><td>123456789</td><td>PI</td><td>200BRLS</td><td>USVBA</td><td>A</td></tr><tr><td>ICN</td><td>1234567890V123456</td><td>NI</td><td>200M</td><td>USVHA</td><td>A</td></tr><tr><td>EDIPI / PNID</td><td>1234567890</td><td>NI</td><td>200DOD</td><td>USDOD</td><td>A</td></tr><tr><td>SSN</td><td>123456789</td><td>SS</td><td></td><td></td><td></td></tr></table>
+          'Identity information for the authenticated user. CorrelationIds may be null or an empty array if the target API does not require it.
+          Otherwise, correlationIds must be the list as retrieved from MVI:
+          <table style=\"table-layout:auto;width:700px;text-align:left;background-color:#efefef;\"><tr><th>Common ID Name</th><th>Example ID</th><th>Type</th><th>Source</th>
+          <th>Issuer</th><th>Status</th><th </tr><tr><td>Participant ID (PID)</td><td>12345678</td><td>PI</td><td>200CORP</td><td>USVBA</td><td>A</td></tr>
+          <tr><td>File Number</td><td>123456789</td><td>PI</td><td>200BRLS</td><td>USVBA</td><td>A</td></tr>
+          <tr><td>ICN</td><td>1234567890V123456</td><td>NI</td><td>200M</td><td>USVHA</td><td>A</td></tr><tr><td>EDIPI / PNID</td><td>1234567890</td><td>NI</td><td>200DOD</td><td>USDOD</td><td>A</td></tr>
+          <tr><td>SSN</td><td>123456789</td><td>SS</td><td></td><td></td><td></td></tr></table>'
         required: true
         content:
             application/json:
@@ -85,29 +78,13 @@ paths:
               schema:
                 type: string
         '400':
-          description: There was an error encountered processing the Request.  Response
-            will contain a  "messages" element that will provide further information
-            on the error.  This request shouldn't be retried until corrected.
-          content:
-            application/problem+json:
-              schema:
-                '$ref': '#/components/schemas/ProviderResponse'
+           '$ref': '#/components/responses/400'
+        '401':
+           '$ref': '#/components/responses/401'
         '403':
-          description: The request is not authorized.  Please verify credentials used
-            in the request.
-          content:
-            application/problem+json:
-              schema:
-                '$ref': '#/components/schemas/ProviderResponse'
+           '$ref': '#/components/responses/403'
         '500':
-          description: There was an error encountered processing the Request.  Response
-            will contain a  "messages" element that will provide further information
-            on the error.  Please retry.  If problem persists, please contact support
-            with a copy of the Response.
-          content:
-            application/problem+json:
-              schema:
-                '$ref': '#/components/schemas/ProviderResponse'
+           '$ref': '#/components/responses/500'
       deprecated: false
 components:
   # securitySchemes are defined by the framework.
@@ -132,7 +109,7 @@ components:
         name:
           type: string
           example: JANE M DOE
-          description: The persons name
+          description: The persons first name, middle initial, and last name
         participantId:
           type: integer
           format: int64
@@ -168,12 +145,12 @@ components:
               '$ref': '#/components/schemas/SampleInfo'
     # Schema objects below are from BIP Framework to be declared.
     # These objects need to be mapped in <importMappings> section
-    # of openapi-generator-maven-plugin so that no code is generated 
+    # of openapi-generator-maven-plugin so that no code is generated
     # for these classes
     Message:
       type: object
       title: Message
-      description: Model that identifies a single individual used in the security context
+      description: Model that identifies a single message added to the repsonse. Property keys are enumerated in  the MessageKeys object.
       required:
       - key
       - severity
@@ -183,7 +160,7 @@ components:
           type: string
         severity:
           # derived from gov.va.bip.framework.messages.MessageSeverity
-          type: string 
+          type: string
           enum:
             - INFO
             - WARN
@@ -254,7 +231,7 @@ components:
           description: The suffix for the person's full name
         user:
           type: string
-    ProviderResponse: 
+    ProviderResponse:
       type: object
       properties:
         messages:
@@ -262,7 +239,65 @@ components:
           items:
             '$ref': '#/components/schemas/Message'
       title: ProviderResponse
-    ProviderRequest: 
+    ProviderRequest:
       type: object
       title: ProviderRequest
-    
+  responses:
+    400:
+      description: There was an error encountered processing the Request.  Response
+        will contain a  "messages" element that will provide further information
+        on the error.  This request shouldn't be retried until corrected.
+      content:
+        application/problem+json:
+          schema:
+            '$ref': '#/components/schemas/ProviderResponse'
+          example:
+              messages:
+                - key: bip.framework.global.validator.method.argument.not.valid
+                  severity: ERROR
+                  status: 400
+                  text: Argument not valid.
+                  timestamp: 2019-08-29T18:40:22.766Z
+    401:
+      description: The authentication mechanism failed and hence access is forbidden.
+      content:
+        application/problem+json:
+          schema:
+            '$ref': '#/components/schemas/ProviderResponse'
+          example:
+              messages:
+                - key: UNAUTHORIZED
+                  severity: ERROR
+                  status: 401
+                  text: No JWT Token in Header.
+                  timestamp: 2019-08-29T18:40:22.766Z
+    403:
+      description: The request is not authorized.  Please verify credentials used
+        in the request.
+      content:
+        application/problem+json:
+          schema:
+            '$ref': '#/components/schemas/ProviderResponse'
+          example:
+              messages:
+                - key: bip.framework.not.authorized.exception
+                  severity: ERROR
+                  status: 403
+                  text: Access denied.
+                  timestamp: 2019-08-29T18:40:22.766Z
+    500:
+      description: There was an error encountered processing the Request.  Response
+            will contain a  "messages" element that will provide further information
+            on the error.  Please retry.  If problem persists, please contact support
+            with a copy of the Response.
+      content:
+        application/problem+json:
+          schema:
+            '$ref': '#/components/schemas/ProviderResponse'
+          example:
+              messages:
+                - key: bip.framework.global.general.exception
+                  severity: ERROR
+                  status: 500
+                  text: Unexpected exception.
+                  timestamp: 2019-08-29T18:40:22.766Z

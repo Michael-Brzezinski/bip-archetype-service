@@ -21,5 +21,7 @@ ADD vault-config.sh /vault-config.sh
 ADD token-policy.hcl /token-policy.hcl
 RUN mkdir -p /consul
 ADD consul /consul
+RUN mkdir -p /vault
+ADD vault /vault
 
 ENTRYPOINT ["/vault-config.sh"]

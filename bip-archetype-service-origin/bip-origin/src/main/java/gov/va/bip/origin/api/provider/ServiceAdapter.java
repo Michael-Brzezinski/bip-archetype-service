@@ -14,8 +14,8 @@ import gov.va.bip.origin.api.model.v1.SampleRequest;
 import gov.va.bip.origin.api.model.v1.SampleResponse;
 import gov.va.bip.origin.model.SampleDomainRequest;
 import gov.va.bip.origin.model.SampleDomainResponse;
-import gov.va.bip.origin.transform.impl.SampleByPid_DomainToProvider;
-import gov.va.bip.origin.transform.impl.SampleByPid_ProviderToDomain;
+import gov.va.bip.origin.transform.impl.SampleByPidDomainToProvider;
+import gov.va.bip.origin.transform.impl.SampleByPidProviderToDomain;
 
 /**
  * An adapter between the provider layer api/model, and the services layer interface/model.
@@ -28,9 +28,9 @@ public class ServiceAdapter {
 	private static final BipLogger LOGGER = BipLoggerFactory.getLogger(ServiceAdapter.class);
 
 	/** Transform Provider (REST) request to Domain (service) request */
-	private SampleByPid_ProviderToDomain sampleByPidProvider2Domain = new SampleByPid_ProviderToDomain();
+	private SampleByPidProviderToDomain sampleByPidProvider2Domain = new SampleByPidProviderToDomain();
 	/** Transform Domain (service) response to Provider (REST) response */
-	private SampleByPid_DomainToProvider sampleByPidDomain2Provider = new SampleByPid_DomainToProvider();
+	private SampleByPidDomainToProvider sampleByPidDomain2Provider = new SampleByPidDomainToProvider();
 
 	/** The service layer API contract for processing sampleByPid() requests */
 	@Autowired

@@ -4,7 +4,7 @@ metadata:
   name: {{ template "bip-origin.fullname" . }}
   labels:
     app: {{ template "bip-origin.name" . }}
-    chart: {{ template "pib-origin.chart" . }}
+    chart: {{ template "bip-origin.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:

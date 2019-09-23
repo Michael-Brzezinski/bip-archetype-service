@@ -30,6 +30,8 @@ function get_args() {
 				echo ""
 				echo "Usage: $thisScript [-h|-b]"
 				echo "Runs fortify on the project, and merges into the root FPR."
+				echo "The current SwA recommended version of Fortify must be installed on your computer."
+				echo "The fortify /bin directory must be on your path. E.g. export /Applications/Fortify/bin"
 				echo "Options:"
 				echo "  -h   show this help."
 				echo "  []   (no arg) do not build the project before running Fortify."
@@ -59,6 +61,14 @@ echo "====================================================="
 echo ""
 
 get_args $args
+
+if [ "$fortifyVersion" == "" ]; then
+	echo "** Error: could not find sourceanalyzer."
+	echo "   Ensure the fortify '/bin' directory is on your path"
+	echo "   Example: export /Applications/Fortify_SCA_and_Apps_19/bin"
+	echo ""
+	exit 2
+fi
 
 if [ $doBuildFirst ]; then
 	echo "* Project will be built before running Fortify"

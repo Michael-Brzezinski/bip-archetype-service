@@ -1,6 +1,5 @@
 # Local Development Environment
-
-This local development environment is strictly for demonstration and local testing of the BIP Platform and Services.
+This local development environment is a set of docker images, and is strictly for demonstration and local testing of applications and BIP Platform.
 
 The local-dev folder also contains tools to assist with preparing to submit [SwA Code Reviews](../docs/fortify-and-swa.md).
 
@@ -14,11 +13,14 @@ To start the environment first build the BIP origin service by running `mvn clea
 
 The `bip-origin` spring boot app must be running for these links to be accessible.
 
-- [BIP Origin App](http://localhost:8080)
-- [Consul](http://localhost:8500) - Master ACL token is `7652ba4c-0f6e-8e75-5724-5e083d72cfe4`
-- [Vault](http://localhost:8200) - Root token is `vaultroot`
-- [Prometheus](http://localhos:9090)
-- [Grafana](http://localhost:3000) - Username/Password is `admin/admin` by default
+* [BIP Reference App](http://localhost:8080)
+* [Consul](http://localhost:8500) - Master ACL token is `7652ba4c-0f6e-8e75-5724-5e083d72cfe4`
+* [Vault](http://localhost:8200) - Root token is `vaultroot`
+* [Prometheus](http://localhos:9090)
+* [Grafana](http://localhost:3000) - Username/Password is `admin/admin` by default
+
+On servers, logs and audit logs are accessed via Kibana using your personal OCP credentials. If you do not have access, please contact the BIP Platform team.
+* [Kibana](http://kibana.dev.bip.va.gov) - log and audit viewer/analyzer
 
 ## Clearing the Redis Cache
 
@@ -35,28 +37,28 @@ The cache auto-configuration registers `BipCacheOpsMBean` and its implementation
 1. Start the spring boot service app (in STS or from command line)
 2. Open `$JAVA_HOME/bin/jconsole` (JAVA_HOME must point to a full JDK, not SE, as jconsole is only available in the full JDK)
 3. When jconsole opens:
-  - In the _New Connection_ dialog, select _Local Process > gov.va.bip.person.OriginApplication_ and click the _Connect_ button
-  - If asked, allow _Insecure connection_
-  - When the console comes up, select the _MBeans_ tab
-  - In the list pane on the left, look under _gov.va.bip.cache > Support > cacheOps > Operations > clearAllCaches_, and click on the _clearAllCaches_ entry
-  - In the right pane under _Operation Invocation_, click the _clearAllCaches()_ button
-  - After a moment, a "Method successfully invoked" message should pop up, indicating that all cache entries have been cleared
+  * In the _New Connection_ dialog, select _Local Process > gov.va.bip.person.OriginApplication_ and click the _Connect_ button
+  * If asked, allow _Insecure connection_
+  * When the console comes up, select the _MBeans_ tab
+  * In the list pane on the left, look under _gov.va.bip.cache > Support > cacheOps > Operations > clearAllCaches_, and click on the _clearAllCaches_ entry
+  * In the right pane under _Operation Invocation_, click the _clearAllCaches()_ button
+  * After a moment, a "Method successfully invoked" message should pop up, indicating that all cache entries have been cleared
 
 #### 2. Default Profile:
 
-If you run the app in default profile, it uses emebedded redis server for caching. To clear cache, follow the below steps.
+If you run the app in default profile (standalone), it uses emebedded redis server for caching. To clear cache, follow the below steps.
 
-- Download [Redis](https://redis.io/download)
-- Go to src folder and run `redis-cli`
-- To see the cache entries - `KEYS *`
-- To clear cache entries - `FLUSHALL`
+* Download [Redis](https://redis.io/download)
+* Go to src folder and run `redis-cli`
+* To see the cache entries - `KEYS *`
+* To clear cache entries - `FLUSHALL`
 
 #### 3. local-int profile:
 
 If you run the app in local-int (docker) profile, follow the below steps.
 
-- Find the container id of the redis using `docker ps -a`
-- Log into the container `docker exec -i -t <container-id> sh`
-- Enter `redis-cli`
-- To see the cache entries - `KEYS *`
-- To clear cache entries - `FLUSHALL`
+* Find the container id of the redis using `docker ps -a`
+* Log into the container `docker exec -i -t <container-id> sh`
+* Enter `redis-cli`
+* To see the cache entries - `KEYS *`
+* To clear cache entries - `FLUSHALL`

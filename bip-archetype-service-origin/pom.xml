@@ -1,13 +1,11 @@
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>gov.va.bip.framework</groupId>
 		<artifactId>bip-framework-parentpom</artifactId>
-		<version>2.0.3</version>
+		<version>2.0.4</version>
 		<relativePath />
 	</parent>
 
@@ -113,7 +111,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<!-- Don't run tests from SCA - profile should be run as: "mvn install -P fortify-sca" -->
+				<!-- Don't run tests from SCA - profile should be run as: "mvn install -Pfortify-merge" -->
 				<skipTests>true</skipTests>
 				<skipITs>true</skipITs>
 				<skipPerfTests>true</skipPerfTests>
@@ -143,12 +141,12 @@
 									<tasks>
 										<!-- add the ant tasks from ant-contrib -->
 										<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-											<classpath refid="maven.dependency.classpath" />
+											<classpath refid="maven.dependency.classpath"/>
 										</taskdef>
 										<echo>+++ Executing ANT target for Fortify copy/merge</echo>
 										<echo>+++ Checking file availability of ${fortify-merge-input-filepath}</echo>
 										<if>
-											<available file="${fortify-merge-input-filepath}" />
+											<available file="${fortify-merge-input-filepath}"/>
 											<then>
 												<echo>+++ Found file: ${fortify-merge-input-filepath}</echo>
 												<echo>+++ Executing Fortify merge operation with:</echo>
@@ -157,8 +155,7 @@
 												<echo>        -source ${fortify-merge-input-filepath}</echo>
 												<echo>        -f ${fortify-merge-output-filepath}</echo>
 												<exec executable="FPRUtility">
-													<arg
-														line="-merge -project ${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr -source ${fortify-merge-input-filepath} -f ${fortify-merge-output-filepath}" />
+													<arg line="-merge -project ${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr -source ${fortify-merge-input-filepath} -f ${fortify-merge-output-filepath}"/>
 												</exec>
 											</then>
 											<else>
@@ -167,8 +164,7 @@
 												<echo>      copy</echo>
 												<echo>        ${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr</echo>
 												<echo>        ${fortify-merge-output-filepath}</echo>
-												<copy file="${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr"
-													tofile="${fortify-merge-output-filepath}" />
+												<copy file="${project.build.directory}/fortify/${project.artifactId}-${project.version}.fpr" tofile="${fortify-merge-output-filepath}"/>
 											</else>
 										</if>
 									</tasks>

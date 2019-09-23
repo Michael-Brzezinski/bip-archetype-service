@@ -34,4 +34,12 @@ vault write consul/roles/os-svc policies=readonly
 consul kv put config/bip-origin.yml @/consul/bip-origin.yml
 consul kv put config/application.yml @/consul/application.yml
 
+# Load a certificate credential example in Vault
+echo "Loading Secrets into Vault..."
+vault kv put secret/blue/bip-origin test=blah
+vault kv put secret/blue/bip-origin/example-service \
+    bip-origin-partner-person.ws.client.privateKey=@/vault/example.key \
+    bip-origin-partner-person.ws.client.publicCert=@/vault/example.crt \
+    bip-origin-partner-person.ws.client.trustedCerts.ca=@/vault/example.crt
+
 ######################################################################

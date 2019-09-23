@@ -33,8 +33,8 @@ tagsDir="./tags"
 
 ########## script variables from swa-prep.properties WITH DEFAULT VALUES
 
-### the directory that Fortify SCA is installed under, eg /Applications/Fortify/Fortify_SCA_and_Apps_18.20
-fortifyInstallDir="/Applications/Fortify/Fortify_SCA_and_Apps_18.20"
+### the directory that Fortify SCA is installed under, eg /Applications/Fortify/Fortify_SCA_and_Apps_19.1.0
+fortifyInstallDir="/Applications/Fortify/Fortify_SCA_and_Apps_19.1.0"
 ### Base output directory for prep files, eg ~/Documents/SwA_code_review/
 outputDir="~/Documents/SwA_code_review/"
 ### the release version of the tag to be reviewed by SwA, default derived from git repo
@@ -47,7 +47,7 @@ cloneUrl="" #eg "https://github.com/department-of-veterans-affairs/bip-framework
 ### the project name from $cloneUrl
 projectName=""
 ### fortify version in use, derived from sourceanalyzer -version
-fortifyVersion="18.20"
+fortifyVersion="19.1.0"
 ### the project properties file to use, derived as ./$tagsDir/$releaseVersion
 propertiesFile=""
 ### the directory with input files (properties & PDF) for the project, derived as $inputDir/$propertiesFileName
@@ -251,7 +251,7 @@ function print_vars() {
 ############################                        ############################
 ################################################################################
 
-## function to fork and PR reference changes ##
+## function to fork and PR origin changes ##
 ## arg: none                                 ##
 ## scope: private (internal calls only)      ##
 function prep_app() {
@@ -342,7 +342,7 @@ function confirm_properties() {
 	echo "Absolute path of the Fortify/SCA installation" 2>&1 | tee -a "$logfile"
 	if [ "$fortifyInstallDir" == "" ]; then
 		echo "  Type or paste the absolute path of the Fortify/SCA installation, then press [Enter] (or Ctrl+C to abort):" 2>&1 | tee -a "$logfile"
-		echo "  NO SPACES!! Example: /Applications/Fortify/Fortify_SCA_and_Apps_18.20" 2>&1 | tee -a "$logfile"
+		echo "  NO SPACES!! Example: /Applications/Fortify/Fortify_SCA_and_Apps_19.1.0" 2>&1 | tee -a "$logfile"
 		read -p "INPUT: " fortifyInstallDir 2>&1 >> "$logfile"
 		check_exit_status "$?"
 	else

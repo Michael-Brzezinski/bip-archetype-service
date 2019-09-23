@@ -28,7 +28,9 @@ public enum OriginMessageKeys implements MessageKey {
 			"Response returned an invalid Participant ID."),
 	/** Response has different PID than the logged in user; no args */
 	BIP_SAMPLE_REQUEST_PID_INVALID("bip.origin.sample.request.pid.invalid",
-			"Response has different PID than the logged in user.");
+			"Response has different PID than the logged in user."),
+	BIP_SAMPLE_SERVICE_IMPL_RESPONDED_WITH_MOCK_DATA("bip.origin.sample.service.impl.responded.with.mock.data",
+			"Response sent from service impl with mock data.");
 
 	/** The filename "name" part of the properties file to get from the classpath */
 	private static final String propertiesFile = "messages";

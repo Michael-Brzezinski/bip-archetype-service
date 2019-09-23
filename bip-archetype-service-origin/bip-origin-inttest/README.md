@@ -11,13 +11,11 @@ Project is built on Java and Maven, and uses the Sring RestTemplate jars for cor
 `pom.xml` - The Maven configuration for building and deploying the project.
 
 `src/inttest/resources/gov/va/origin/feature` - This is where you will create the cucumber feature files that contain the Feature
-and Scenarios for the Origin service you are testing.
+and Scenarios for the Origin service you are testing. As a good practice, it is suggested to group all the similar business functionality in one feature file.
 
-`src/inttest/java/gov/va/bip/origin/service/steps` - The implementation steps related to the feature
-and scenarios mentioned in the cucumber file for the API needs to be created in this location. 
+`src/inttest/java/gov/va/bip/origin/service/steps` - The implementation steps related to the feature and scenarios mentioned in the cucumber file for the API needs to be created in this location.  In GenericSteps.java class Generic steps like validating the status code, setting header for the service are implemented here to avoid duplication of steps implementation.
 
-`src/inttest/java/gov/va/bip/origin/service/runner` - Cucumber runner class that contains all feature file entries that needs to be executed at runtime.
-The annotations provided in the cucumber runner class will assist in bridging the features to step definitions.
+`src/inttest/java/gov/va/bip/origin/service/runner` - Cucumber runner class that contains all feature file entries that needs to be executed at runtime. The annotations provided in the cucumber runner class will assist in bridging the features to step definitions.
 
 `src/inttest/resources/request/dev` – This folder contains DEV request files if the body of your API call is static and needs to be sent as a XML/JSON file.
 
@@ -43,7 +41,7 @@ origin-inttest-<env>.properties**
 
 To execute the functional test in local bip-origin service needs to be up and running.
 
-# How to Build and Test Origin service
+# How to Build and Test origin service
 [quick-start-guide](/docs/quick-start-guide.md)
 
 **Command Line:** Use this command(s) to execute the Origin service Functional test. 

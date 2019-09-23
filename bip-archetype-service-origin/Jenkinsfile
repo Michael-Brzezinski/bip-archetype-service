@@ -1,16 +1,11 @@
 mavenGitflowPipeline {
 
-    /***************************************************************************
-    * Sonar GitHub Credentials - Settings this value will configure the pipeline 
-    * to use this credential to connect to GitHub during sonar PR scans, adding 
-    * comments for any violations found
-    *************************************************************************/
-    // sonarGithubCredentials = 'dsva-github'
+    //Sonar Github Credentials - Settings this value will configure the pipeline to use this credential
+    //to connect to github during sonar PR scans, adding comments for any violations found
+    sonarGithubCredentials = 'dsva-github'
 
-    /***************************************************************************
-    * GitHub credential ID to use for releases
-    *************************************************************************/
-    // githubCredentials = 'epmo-github'
+    //Github credential ID to use for releases
+    githubCredentials = 'epmo-github'
     
     //Specify to use the fortify maven plugin, instead of the Ant task to execute the fortify scan
     useFortifyMavenPlugin = true
@@ -30,7 +25,7 @@ mavenGitflowPipeline {
     * Functional Testing Configuration
     *************************************************************************/
     
-    //Directory that will contain the generated cucumber reports
+    //Directory that contains the cucumber reports
     cucumberReportDirectory = "bip-origin-inttest/target/site"
 
     //Additional Mavn options to use when running functional test cases
@@ -43,21 +38,22 @@ mavenGitflowPipeline {
     * This section should be omitted if you are using Helm for deployments on
     * Kubernetes.
     *************************************************************************/
-    //Path to your applications OpenShift deployment template
+    //Path to your applications Openshift deployment template
     deploymentTemplates = ["template.yaml"]
     
-    //Deployment parameters used to configure your OpenShift deployment template
+    //Deployment parameters used to configure your Openshift deployment template
     deploymentParameters = [
         'APP_NAME': 'bip-origin',
-        'IMAGE': 'bip-origin'
+        'IMAGE': 'bip-origin',
+        'SPRING_PROFILES': 'dev'
     ]
 
     /*************************************************************************
     * Helm Deployment Configuration
     *
     * This section only applied to builds running on the Kubernetes platform.
-    * This section should be omitted if you are using OpenShift templates for
-    * deployment on OpenShift.
+    * This section should be omitted if you are using Openshift templates for
+    * deployment on Openshift.
     *************************************************************************/
 
     //Git Repository that contains your Helm chart
