@@ -379,3 +379,366 @@
 		</profile>
 	</profiles>
 </project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>gov.va.bip.origin</groupId>
+		<artifactId>bip-origin-reactor</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<artifactId>bip-origin</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+	<description>Origin Service Implementation for BIP Project</description>
+
+	<properties>
+		<bip-framework.version>2.0.4</bip-framework.version>
+	</properties>
+
+	<dependencies>
+		<!--
+			Add Partner Client project refs here
+			EXAMPLE:
+			<dependency>
+				<groupId>gov.va.bip.reference.person</groupId>
+				<artifactId>bip-reference-partner-person</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		-->
+		<!-- framework dependencies -->
+		<dependency>
+			<groupId>gov.va.bip.framework</groupId>
+			<artifactId>bip-framework-libraries</artifactId>
+			<version>${bip-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>gov.va.bip.framework</groupId>
+			<artifactId>bip-framework-autoconfigure</artifactId>
+			<version>${bip-framework.version}</version>
+		</dependency>
+		<!-- spring-boot dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- spring cloud dependencies -->
+		<!-- Spring-cloud Netflix Feign dependency for defining declarative REST clients -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<!-- Spring-cloud Netflix hystrix dependency for circuit breaker implementation -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-vault-config-consul</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-all</artifactId>
+			<exclusions>
+				<!-- Module spring-cloud-netflix-core is deprecated as of 2.1.0, use spring-cloud-netflix-hystrix instead. -->
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-netflix-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.codehaus.janino/janino -->
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+		</dependency>
+		<!-- additional jackson dependencies not brought in via spring-boot starters -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-base</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>openapi-generator</artifactId>
+		</dependency>
+		
+		<!-- jolokia for JMX over HTTP via /jolokia -->
+		<dependency>
+			<groupId>org.jolokia</groupId>
+			<artifactId>jolokia-core</artifactId>
+		</dependency>
+
+		<!-- misc dependencies -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!--
+					Meta-information about the web application.
+					
+					The templating maven plugin handles generating and copying files from
+					a source to a given output directory, while filtering them.
+					This plugin is useful to filter Java Source Code as there is a need
+					to have things in the code replaced with properties values.
+					Generates class to store project.* properties in the ApplicationInfo.java
+					placed under <sourceDirectory>
+					This mojo helps adding a filtered source folder in one go. This is
+					useful as we want to use properties coming from the POM inside
+					parts of our source code that requires real constants
+
+					See ApplicationInfo.java in src/java-template directory
+				-->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>templating-maven-plugin</artifactId>
+				<version>${templating-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>filtering-java-templates</id>
+						<goals>
+							<goal>filter-sources</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${basedir}/src/main/java-template</sourceDirectory>
+							<outputDirectory>${project.build.directory}/generated-sources/java-template</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Generate the source java file described by the templating-maven-plugin above -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/java-template</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<!-- OpenAPI Specification (OAS) Code generation profile. In the framework
+			parent pom see profile with id: org-openapitools-codegen-parent There are
+			multiple plugins in the parent POM for swagger UI download, generate. The
+			<exists> section below has to match the one from parent pom for the build
+			phases and goals to execute for openapi code and swagger ui generation to
+			work -->
+		<profile>
+			<id>org-openapitools-codegen-origin</id>
+			<activation>
+				<file>
+					<!-- Existence of API YML file to activate the profile. DO NOT
+						MODIFY LOCATION AND FILE NAME AS FRAMEWORK USES THE SAME FOR ACTIVATION,
+						SPEC GENERATE -->
+					<exists>${basedir}/src/main/resources/openapi/openapi.yml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<!-- activate the openapi-generator-maven-plugin -->
+					<plugin>
+						<groupId>org.openapitools</groupId>
+						<artifactId>openapi-generator-maven-plugin</artifactId>
+						<version>${openapi.codegen.version}</version>
+						<executions>
+							<execution>
+								<id>generate-openapi-origin</id>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<!-- See https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin -->
+									<inputSpec>${basedir}/src/main/resources/openapi/openapi.yml</inputSpec>
+									<output>${project.build.directory}/generated-sources</output>
+									<ignoreFileOverride>${basedir}/.openapi-generator-ignore</ignoreFileOverride>
+
+									<apiPackage>gov.va.bip.origin.api</apiPackage>
+									<modelPackage>gov.va.bip.origin.api.model.v1</modelPackage>
+									<importMappings>
+										ProviderResponse=gov.va.bip.framework.rest.provider.ProviderResponse,
+										ProviderRequest=gov.va.bip.framework.rest.provider.ProviderRequest,
+										Message=gov.va.bip.framework.rest.provider.Message,
+										Person=gov.va.bip.framework.security.model.Person,
+										ProviderTransferObjectMarker=gov.va.bip.framework.transfer.ProviderTransferObjectMarker
+									</importMappings>
+
+									<addCompileSourceRoot>false</addCompileSourceRoot>
+									<configHelp>false</configHelp>
+									<verbose>false</verbose>
+									<generatorName>spring</generatorName>
+									<generateApiDocumentation>false</generateApiDocumentation>
+									<generateApiTests>false</generateApiTests>
+									<generateApis>true</generateApis>
+									<generateModels>true</generateModels>
+									<generateModelTests>false</generateModelTests>
+									<generateModelDocumentation>false</generateModelDocumentation>
+									<generateSupportingFiles>false</generateSupportingFiles>
+									<languageSpecificPrimitives>true</languageSpecificPrimitives>
+									<templateDirectory>${basedir}/src/main/resources/openapi/mustache</templateDirectory>
+
+									<configOptions>
+										<serializableModel>true</serializableModel>
+										<sourceFolder>openapi</sourceFolder>
+										<interfaceOnly>true</interfaceOnly>
+										<implicitHeaders>false</implicitHeaders>
+										<java8>false</java8>
+										<useBeanValidation>true</useBeanValidation>
+										<performBeanValidation>true</performBeanValidation>
+										<useTags>true</useTags>
+										<swaggerDocketConfig>false</swaggerDocketConfig>
+									</configOptions>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<!-- the following is only necessary if you are using eclipse, STS and
+					m2e -->
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.openapitools</groupId>
+												<artifactId>openapi-generator-maven-plugin</artifactId>
+												<versionRange>[${openapi.codegen.version},)</versionRange>
+												<goals>
+													<goal>generate</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<execute />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>com.google.code.maven-replacer-plugin</groupId>
+												<artifactId>replacer</artifactId>
+												<versionRange>[${google.codereplacer.version},)</versionRange>
+												<goals>
+													<goal>replace</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<execute />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.apache.maven.plugins</groupId>
+												<artifactId>maven-antrun-plugin</artifactId>
+												<versionRange>[${maven-antrun-plugin.version},)</versionRange>
+												<goals>
+													<goal>run</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<execute />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+</project>
