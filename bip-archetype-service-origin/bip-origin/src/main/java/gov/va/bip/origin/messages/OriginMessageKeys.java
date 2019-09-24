@@ -77,4 +77,5 @@ public enum OriginMessageKeys implements MessageKey {
 	public String getMessage(final String... params) {
 		return messageSource.getMessage(this.getKey(), params, this.defaultMessage, Locale.getDefault());
 	}
+	
 }

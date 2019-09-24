@@ -145,24 +145,6 @@
 			<artifactId>openapi-generator</artifactId>
 		</dependency>
 		
-        <!-- misc dependencies -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        
-        <!-- test dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <scope>test</scope>
-        </dependency>
-    
 		<!-- jolokia for JMX over HTTP via /jolokia -->
 		<dependency>
 			<groupId>org.jolokia</groupId>
