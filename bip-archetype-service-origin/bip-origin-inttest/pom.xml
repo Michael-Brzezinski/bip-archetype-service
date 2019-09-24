@@ -18,7 +18,7 @@
 	<description>BIP Origin Service Integration Test Suite</description>
 	
 	<properties>
-    	<bip-framework.version>2.0.4-SNAPSHOT</bip-framework.version>
+    	<bip-framework.version>2.0.4</bip-framework.version>
 	</properties>
 
 	<dependencies>
