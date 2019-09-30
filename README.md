@@ -1,4 +1,4 @@
-Note : Please read all the instructions for maintaining and updating this project outlined at the end of this document before making any changes to the project or any of its branches starting with 'master-'.  
+Note : Please read all the instructions for maintaining and updating this project outlined at the end of this document before making any changes to the project or any of its branches starting with `master-`
 
 # BIP Service Archetype Project
 
@@ -10,7 +10,7 @@ This repository is comprised of:
 
 - An origin (or source) project from which new BIP Service projects can be created.
 - A script and properties that can be used to create the new BIP Service project. Optionally include configuration and skeleton code for
- 	- relational databases, including preconfigured dtasources for multiple databases
+ 	- relational databases, including preconfigured datasources for multiple databases
 	- client calls to SOAP partner JARs
 
 The newly created artifact will contain a skeleton project with some rudimentary sample data objects demonstrating a simple use case.
@@ -129,8 +129,8 @@ The [reference application](https://github.ec.va.gov/EPMO/bip-reference-person) 
 
 # Instructions for the maintaining and updating the project
 
-1. Branches starting with 'master-' should not be deleted.
-2. The branches starting with 'master-' represent a specific component or piece of the project that can be optionally added or omitted. For example, master-db is a branch that contains the necessary code and other file changes to carry out db operations.
-3. When any change is made to the master branch, the master branch needs to be merged with with all the branches starting with 'master-' and any resulting merge conflicts need to be resolved.  
-4. When a new capability in the form of a component is added to this project, a branch called master-<name-of-new-component> will be created from the master branch.Then the changes related to adding the capability supplied by that component are added in this branch, without removing or modifying any lines inherited from master.
-6. The new component name needs to be documented in the gen.properties file, before the 'components' property value, similar to how other components such as db and partner are documented.
+1. Branches starting with `master-` MUST NOT be deleted.
+2. The branches starting with 'master-' represent a specific component or piece of the project that can be optionally added or omitted. For example, `master-db` is a branch that contains the necessary code and other file changes to carry out database operations.
+3. When any change is made to the master branch, the master branch needs to be merged with with all the branches starting with `master-` and any resulting merge conflicts needs to be resolved.  
+4. When a new capability in the form of a component is added to this project, a branch called `master-<name-of-new-component>` will be created from the master branch.Then the changes related to adding the capability supplied by that component are added in this branch, without removing or modifying any lines inherited from master.
+6. The new component name needs to be documented in the `gen.properties` file, before the `components` property value, similar to how other components such as `db` and `partner` are documented.

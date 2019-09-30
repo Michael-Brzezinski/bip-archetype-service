@@ -30,6 +30,26 @@ mavenGitflowPipeline {
 
     //Additional Mavn options to use when running functional test cases
     cucumberOpts = "--tags @DEV"
+    
+    /* Postman Testing Configuration */
+   
+   // Set of Postman test collections to execute. Required for Postman Testing stage to run.
+   // postmanTestCollections = [
+   //   'src/test/postman/collection.json',
+   //   'src/test/postman/collection2.json'
+   // ]
+
+   // Only run specified folder from collection. Optional. Runs all tests in collection if not specified
+   // postmanFolder = 'smoke'
+
+   // Environment File. Optional
+   // postmanEnvironment = 'src/test/postman/dev.json'
+
+   // Globals File. Optional.
+   // postmanGlobals = 'src/test/postman/globals.json'
+
+   // Data File. Optional.
+   // postmanData = 'src/test/postman/data.json'
 
     /*************************************************************************
     * OpenShift Deployment Configuration
