@@ -18,5 +18,4 @@ services:
         - MASTER_ACL_TOKEN=7642ba4c-0f6e-8e75-5725-5e083d72cfe4
         ports:
         - "8500:8500"
-
 ```

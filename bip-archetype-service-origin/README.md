@@ -18,7 +18,7 @@ Some capabilities that are provided in [bip-reference-person](https://github.ec.
 
 Included capabilities:
 
-- Files for Jenkins, Helm, docker config of vault, consul, etc.
+- Files for Jenkins, docker config of vault, consul, etc.
 - Core code for basic application configuration, spring Application class, REST API provider, service impl, model transformation, validation, logging, file uploads and downloads, database reads and writes (including auditing), and exception handling.
 - Branches in source control are used to provide optional components (e.g database configuration, SOAP partner integration).
 

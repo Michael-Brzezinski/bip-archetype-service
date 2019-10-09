@@ -84,7 +84,7 @@
 									<!-- run scans against all reactor projects -->
 									<aggregate>true</aggregate>
 									<!-- exclude inttest and perftest, as they don't go to prod -->
-									<excludes>**/bip-*-inttest/*,**/bip-*-perftest/*</excludes>
+									<excludes>${user.dir}/bip-origin-inttest,${user.dir}/bip-origin-perftest</excludes>
 								</configuration>
 							</execution>
 							<execution>
@@ -97,7 +97,7 @@
 									<!-- run scans against all reactor projects -->
 									<aggregate>true</aggregate>
 									<!-- exclude inttest and perftest, as they don't go to prod -->
-									<excludes>**/bip-*-inttest/*,**/bip-*-perftest/*</excludes>
+									<excludes>${user.dir}/bip-origin-inttest,${user.dir}/bip-origin-perftest</excludes>
 								</configuration>
 							</execution>
 						</executions>

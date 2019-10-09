@@ -34,21 +34,23 @@ Various packages and their corresponding log levels are specified here. By Defau
 
 `src/inttest/resources/config/origin-inttest-stage.properties` – STAGE configuration properties such as URL are specified here.
 
-**Note: All the configurations are defined external to the code and is per profile/environment. The naming conversion of the file
-origin-inttest-<env>.properties**
+**Note: All the configurations are defined external to the code and is per profile/environment. The naming convention of the file is vetservices-inttest-&lt;env>.properties**
 
 ## Execution
 
-To execute the functional test in local bip-origin service needs to be up and running.
+To execute the functional tests in local bip-origin the service needs to be up and running.
 
 # How to Build and Test origin service
-[quick-start-guide](/docs/quick-start-guide.md)
+[Quick Start Guide](/docs/quick-start-guide.md)
 
-**Command Line:** Use this command(s) to execute the Origin service Functional test. 
+**Command Line:** Execute the Origin service functional tests using the environment specific command below. 
 ```bash
-    Default Local: mvn verify -Pinttest -Dcucumber.options="--tags @DEV"
+Default Local: mvn verify -Pinttest -Dcucumber.options="--tags @DEV" 
 ```
-    DEV: mvn verify -Pinttest -Dtest.env=dev -Ddockerfile.skip=true -Dcucumber.options="--tags @DEV"
+
+```bash
+DEV: mvn verify -Pinttest -Dtest.env=dev -Ddockerfile.skip=true -Dcucumber.options="--tags @DEV"
+```
 
 
 ## More Details For Functional Test

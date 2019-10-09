@@ -179,6 +179,10 @@ components:
       title: Person
       description: Model that identifies a single individual used in the security context
       properties:
+        appToken:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+          description: The application's custom token passed as any String from consumers to the API services
         assuranceLevel:
           type: integer
           format: int32
@@ -229,8 +233,6 @@ components:
           type: string
           example: S
           description: The suffix for the person's full name
-        user:
-          type: string
     ProviderResponse:
       type: object
       properties:

@@ -8,6 +8,7 @@ info:
     description: "@project.description@"
 server:
   port: 8080
+  max-http-header-size: 65536
 ---
 spring.profiles: default
 spring.profiles.include: remote_client_sims, embedded-redis

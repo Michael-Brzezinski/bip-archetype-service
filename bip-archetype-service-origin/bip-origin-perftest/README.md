@@ -1,4 +1,4 @@
-##What is this project for?
+## What is this project for?
 This document provides details for **Origin Service Performance Testing**.
 
 ## Performance tests for Origin Service
@@ -23,7 +23,7 @@ Every request must contain a valid JWT header, so every test calls the `/token` 
 ## Performance Test Configuration
 
 The test suite can be configured to:
-- execute each test a different number of times
+- execute each test a different number of times.
 - execute each test with different number of threads.
 
 Below is an example of typical configuration values. To override any of the properties, pass them on the command line as `-D` arguments, e.g. `-Ddomain=(env)`.
@@ -66,7 +66,7 @@ Below is an example of typical configuration values. To override any of the prop
 
 To execute performance tests locally, navigate to the `bip-origin-perftest` directory, and run
 ```bash
-	mvn clean verify -Pperftest
+mvn clean verify -Pperftest
 ```
 If you need to override any of the properties add the to the command using the appropriate `-Dpropety=value` argument(s).
 
@@ -74,8 +74,7 @@ If you need to override any of the properties add the to the command using the a
 An example for executing the test in performance test environment:
 
 ```bash
-     mvn clean verify -Pperftest -Dprotocol=<> -Ddomain=<> -Dport=<> -DBearerTokenCreate.threadGroup.threads=150
-      -DBearerTokenCreate.threadGroup.rampUp=50 -DBearerTokenCreate.threadGroup.loopCount=1 -DHealth.threadGroup.threads=150 -DHealth.threadGroup.rampUp=150 -DHealth.threadGroup.loopCount=-1 -DHealth.threadGroup.duration=230 -DHealth.threadGroup.startUpDelay=30 -DSampleInfo.threadGroup.threads=150 -DSampleInfo.threadGroup.rampUp=150 -DSampleInfo.threadGroup.loopCount=-1 -DSampleInfo.threadGroup.duration=230 -DSampleInfo.threadGroup.startUpDelay=30 -DSampleInfoNoRecordFound.threadGroup.threads=150 -DSampleInfoNoRecordFound.threadGroup.rampUp=150 -DSampleInfoNoRecordFound.threadGroup.loopCount=-1 -DSampleInfoNoRecordFound.threadGroup.duration=230 -DSampleInfoNoRecordFound.threadGroup.startUpDelay=30 -DSampleInfoInvalidPid.threadGroup.threads=150 -DSampleInfoInvalidPid.threadGroup.rampUp=150 -DSampleInfoInvalidPid.threadGroup.loopCount=-1 -DSampleInfoInvalidPid.threadGroup.duration=230 -DSampleInfoInvalidPid.threadGroup.startUpDelay=30 -DSampleInfoNullPid.threadGroup.threads=150 -DSampleInfoNullPid.threadGroup.rampUp=150 -DSampleInfoNullPid.threadGroup.loopCount=-1 -DSampleInfoNullPid.threadGroup.duration=230 -DSampleInfoNullPid.threadGroup.startUpDelay=30
+mvn clean verify -Pperftest -Dprotocol=<> -Ddomain=<> -Dport=<> -DBearerTokenCreate.threadGroup.threads=150 -DBearerTokenCreate.threadGroup.rampUp=50 -DBearerTokenCreate.threadGroup.loopCount=1 -DPersonHealth.threadGroup.threads=150 -DPersonHealth.threadGroup.rampUp=150 -DPersonHealth.threadGroup.loopCount=-1 -DPersonHealth.threadGroup.duration=230 -DPersonHealth.threadGroup.startUpDelay=30 -DPersonInfo.threadGroup.threads=150 -DPersonInfo.threadGroup.rampUp=150 -DPersonInfo.threadGroup.loopCount=-1 -DPersonInfo.threadGroup.duration=230 -DPersonInfo.threadGroup.startUpDelay=30 -DPersonInfoNoRecordFound.threadGroup.threads=150 -DPersonInfoNoRecordFound.threadGroup.rampUp=150 -DPersonInfoNoRecordFound.threadGroup.loopCount=-1 -DPersonInfoNoRecordFound.threadGroup.duration=230 -DPersonInfoNoRecordFound.threadGroup.startUpDelay=30 -DPersonInfoInvalidPid.threadGroup.threads=150 -DPersonInfoInvalidPid.threadGroup.rampUp=150 -DPersonInfoInvalidPid.threadGroup.loopCount=-1 -DPersonInfoInvalidPid.threadGroup.duration=230 -DPersonInfoInvalidPid.threadGroup.startUpDelay=30 -DPersonInfoNullPid.threadGroup.threads=150 -DPersonInfoNullPid.threadGroup.rampUp=150 -DPersonInfoNullPid.threadGroup.loopCount=-1 -DPersonInfoNullPid.threadGroup.duration=230 -DPersonInfoNullPid.threadGroup.startUpDelay=30
 ```
 
 ## How to set up JMeter and Create Test Plan (JMX)

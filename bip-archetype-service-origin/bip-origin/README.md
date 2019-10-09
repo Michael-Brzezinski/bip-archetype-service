@@ -12,7 +12,7 @@ The responsibilities and capabilities of the service application are :exclamatio
 ## How to add the dependency
 The service application project is one of the sub-project `<modules>` in a reactor project.  Add the service project to the reactor POM.
 ```xml
-	<module>bip-origin</module>
+<module>bip-origin</module>
 ```
 
 ## Diagrams
