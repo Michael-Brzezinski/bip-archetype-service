@@ -29,6 +29,8 @@ Omitted capabilities:
   - The Feign Client code (REST client) and config have been removed.
   - The `bip-reference-partner-person` SOAP service project has been removed. It is worth noting that the service Helper class remains in the project as a template for SOAP client calls.
 
+- Runtime and Deployment Configuration. These configurations can be found in the [origin-config](https://github.ec.va.gov/EPMO/origin-config) repository. Documentation on modifying your applications deployment configuration and the promotion process can be found there.
+
 # Creating a New Project from Origin
 
 See the [root README](../README.md).

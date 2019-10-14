@@ -174,6 +174,11 @@ objects:
                     configMapKeyRef:
                       name: ${IMAGE}-${BRANCH}-config
                       key: spring.cloud.vault.enabled
+                - name: spring.cloud.vault.failFast
+                  valueFrom:
+                    configMapKeyRef:
+                      name: ${IMAGE}-${BRANCH}-config
+                      key: spring.cloud.vault.failFast
                 - name: spring.cloud.vault.authentication
                   valueFrom:
                     configMapKeyRef:
@@ -266,6 +271,7 @@ objects:
       spring.cloud.consul.discovery.enabled: "true"
       spring.cloud.consul.discovery.register: "true"
       spring.cloud.vault.enabled: "true"
+      spring.cloud.vault.failFast: "true"
       spring.cloud.vault.consul.enabled: "true"
       spring.cloud.vault.authentication: "KUBERNETES"
       spring.cloud.vault.kubernetes.service-account-token-file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
