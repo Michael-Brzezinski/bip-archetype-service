@@ -77,15 +77,17 @@ public class SampleDomainResponseValidator extends AbstractStandardValidator<Sam
 		}
 		// check logged in user's pid matches returned pid
 		PersonTraits personTraits = SecurityUtils.getPersonTraits();
-		if (personTraits != null && StringUtils.isNotBlank(personTraits.getPid())) {
-			if (toValidate.getSampleInfo() != null
-					&& toValidate.getSampleInfo().getParticipantId() != null
-					&& !personTraits.getPid().equals(toValidate.getSampleInfo().getParticipantId().toString())) {
+		boolean hasTraits = personTraits != null
+				&& StringUtils.isNotBlank(personTraits.getPid());
+		boolean canValidate = toValidate.getSampleInfo() != null
+				&& toValidate.getSampleInfo().getParticipantId() != null;
 
-				OriginMessageKeys key = OriginMessageKeys.BIP_SAMPLE_REQUEST_PID_INVALID;
-				LOGGER.info(key.getKey() + " " + key.getMessage());
-				toValidate.addMessage(MessageSeverity.WARN, HttpStatus.OK, key);
-			}
+		if (hasTraits && canValidate
+				&& !personTraits.getPid().equals(toValidate.getSampleInfo().getParticipantId().toString())) {
+
+			OriginMessageKeys key = OriginMessageKeys.BIP_SAMPLE_REQUEST_PID_INVALID;
+			LOGGER.info(key.getKey() + " " + key.getMessage());
+			toValidate.addMessage(MessageSeverity.WARN, HttpStatus.OK, key);
 		}
 	}
 

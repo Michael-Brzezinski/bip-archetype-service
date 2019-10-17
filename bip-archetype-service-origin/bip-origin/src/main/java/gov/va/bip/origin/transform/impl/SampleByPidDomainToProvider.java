@@ -10,7 +10,7 @@ import gov.va.bip.origin.model.SampleDomainResponse;
  *
  * @author aburkholder
  */
-public class SampleByPid_DomainToProvider extends AbstractDomainToProvider<SampleDomainResponse, SampleResponse> {
+public class SampleByPidDomainToProvider extends AbstractDomainToProvider<SampleDomainResponse, SampleResponse> {
 
 	/**
 	 * Transform a service Domain {@link SampleDomainResponse} into a REST Provider {@link SampleResponse} object.

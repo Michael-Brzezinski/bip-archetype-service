@@ -18,9 +18,10 @@ public final class StringUtil {
 	private static final int DEFAULT_MASK_COUNT = 4;
 
 	/**
-	 * hide constructor.
+	 * Do not instantiate.
 	 */
 	private StringUtil() {
+		throw new UnsupportedOperationException("StringUtil is a static class. Do not instantiate it.");
 	}
 
 	/**

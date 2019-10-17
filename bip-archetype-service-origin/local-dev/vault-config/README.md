@@ -21,5 +21,4 @@ services:
         - VAULT_DEV_ROOT_TOKEN_ID=vaultroot
         - CONSUL_HTTP_ADDR=http://consul:8500
         - CONSUL_HTTP_TOKEN=7652ba4c-0f6e-8e75-5724-5e083d72cfe4
-
 ```

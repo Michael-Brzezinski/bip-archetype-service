@@ -26,7 +26,6 @@ There are different methods to bring down your sonarqube environment, but which 
 docker-compose down
 
 # Stops the containers and removes all associated images. You'd want to do this if you want to do a fresh build of your containers, or made a change locally and want to test it.
-
 docker-compose down --rmi all
 
 # Your sonarqube environment is set up to persist your scans. If you want to get rid of that scanning history, execute the following...
@@ -35,4 +34,3 @@ docker-compose down -v
 # Note that you can get clean out the volumes and the associated images with the following...
 docker-compose down --rmi all -v
 ```
-

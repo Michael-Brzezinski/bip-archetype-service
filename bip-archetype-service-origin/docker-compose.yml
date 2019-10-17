@@ -9,6 +9,7 @@ services:
       context: ./bip-origin
     environment:
       - spring.profiles.active=local-int
+      - spring.profiles.include=remote_client_sims
       - spring.cloud.consul.host=consul
       - spring.redis.host=redis
       - spring.cloud.vault.host=vault
@@ -19,6 +20,7 @@ services:
       - spring.cloud.vault.enabled=true
       - spring.cloud.vault.consul.enabled=true
       - bip.framework.security.jwt.enabled=true
+      - spring.cloud.vault.kv.application-name=blue/bip-origin
     ports:
       - "8080:8080"
     networks:

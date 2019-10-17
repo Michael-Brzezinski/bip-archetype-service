@@ -31,6 +31,9 @@ public class OriginResource implements OriginApi, SwaggerResponseMessages {
 	/** Logger instance */
 	private static final BipLogger LOGGER = BipLoggerFactory.getLogger(OriginResource.class);
 
+	/** Logger "returning" message */
+	private static final String LOG_MSG_RETURNING = "Returning providerResponse to consumer";
+
 	/** The root path to this resource */
 	public static final String URL_PREFIX = "/api/v1/origin";
 
@@ -86,7 +89,7 @@ public class OriginResource implements OriginApi, SwaggerResponseMessages {
 
 		SampleResponse providerResponse = serviceAdapter.sampleByPid(sampleRequest);
 		// send provider response back to consumer
-		LOGGER.debug("Returning providerResponse to consumer");
+		LOGGER.debug(LOG_MSG_RETURNING);
 		return new ResponseEntity<>(providerResponse, HttpStatus.OK);
 	}
 

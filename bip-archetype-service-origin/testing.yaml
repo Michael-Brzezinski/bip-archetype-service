@@ -7,6 +7,9 @@
   image:
     repository: container-registry.dev8.bip.va.gov/bip-origin
     tag: latest
+    pullPolicy: Always
+  ingress:
+    enabled: false
   vault:
     enabled: false
     consulBackendEnabled: false

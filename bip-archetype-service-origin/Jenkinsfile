@@ -6,13 +6,16 @@ mavenGitflowPipeline {
 
     //Github credential ID to use for releases
     githubCredentials = 'epmo-github'
+    
+    //Specify to use the fortify maven plugin, instead of the Ant task to execute the fortify scan
+    useFortifyMavenPlugin = true
 
     /*************************************************************************
     * Docker Build Configuration
     *************************************************************************/
 
     // Map of Image Names to sub-directory in the repository. If this is value is non-empty, 
-    // the build pipepline will build all images specified in the map. The example below will build an image tagged as 
+    // the build pipeline will build all images specified in the map. The example below will build an image tagged as 
     // `bip-origin:latest` using the Docker context of `./bip-origin`.
     dockerBuilds = [
         'bip-origin': 'bip-origin'
@@ -21,9 +24,32 @@ mavenGitflowPipeline {
     /*************************************************************************
     * Functional Testing Configuration
     *************************************************************************/
+    
+    //Directory that contains the cucumber reports
+    cucumberReportDirectory = "bip-origin-inttest/target/site"
 
     //Additional Mavn options to use when running functional test cases
     cucumberOpts = "--tags @DEV"
+    
+    /* Postman Testing Configuration */
+   
+   // Set of Postman test collections to execute. Required for Postman Testing stage to run.
+   // postmanTestCollections = [
+   //   'src/test/postman/collection.json',
+   //   'src/test/postman/collection2.json'
+   // ]
+
+   // Only run specified folder from collection. Optional. Runs all tests in collection if not specified
+   // postmanFolder = 'smoke'
+
+   // Environment File. Optional
+   // postmanEnvironment = 'src/test/postman/dev.json'
+
+   // Globals File. Optional.
+   // postmanGlobals = 'src/test/postman/globals.json'
+
+   // Data File. Optional.
+   // postmanData = 'src/test/postman/data.json'
 
     /*************************************************************************
     * OpenShift Deployment Configuration
@@ -38,10 +64,25 @@ mavenGitflowPipeline {
     //Deployment parameters used to configure your Openshift deployment template
     deploymentParameters = [
         'APP_NAME': 'bip-origin',
-        'IMAGE': 'bip-origin'
+        'IMAGE': 'bip-origin',
+        'SPRING_PROFILES': 'dev'
     ]
 
-    
+    //Functional Testing Deployment parameters used to configure your Openshift deployment template
+    // Defaults to the value of `deploymentParameters` if not specified.
+    functionalTestDeploymentParameters = [
+        'APP_NAME': 'bip-origin',
+        'IMAGE': 'bip-origin',
+        'SPRING_PROFILES': 'dev'
+    ]
+
+    //Performance Testing Deployment parameters used to configure your Openshift deployment template
+    // Defaults to the value of `deploymentParameters` if not specified.
+    performanceTestDeploymentParameters = [
+         'APP_NAME': 'bip-origin',
+         'IMAGE': 'bip-origin',
+         'SPRING_PROFILES': 'dev'
+    ]
 
     /*************************************************************************
     * Helm Deployment Configuration
@@ -52,7 +93,7 @@ mavenGitflowPipeline {
     *************************************************************************/
 
     //Git Repository that contains your Helm chart
-    chartRepository = "https://github.ec.va.gov/EPMO/bip-external-config"
+    chartRepository = "https://github.ec.va.gov/EPMO/bip-origin-config"
 
     //Path to your chart directory within the above repository
     chartPath = "charts/bip-origin"

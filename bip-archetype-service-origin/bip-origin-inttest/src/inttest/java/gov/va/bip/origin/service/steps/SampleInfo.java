@@ -23,50 +23,95 @@ import gov.va.bip.framework.test.util.JsonUtil;
  */
 public class SampleInfo {
 
+	/** The LOGGER */
 	final static Logger LOGGER = LoggerFactory.getLogger(SampleInfo.class);
+
+	/** The step definition handler */
 	private BaseStepDefHandler handler = null;
 
+	/**
+	 * Instantiates a new sample info object.
+	 *
+	 * @param handler
+	 *            the handler
+	 */
 	public SampleInfo(BaseStepDefHandler handler) {
 		this.handler = handler;
 	}
 
+	/**
+	 * Sets up and initializes REST.
+	 */
 	@Before({})
 	public void setUpREST() {
 		handler.initREST();
 	}
 
+	/**
+	 * Client request POST with jsondata.
+	 *
+	 * @param strURL
+	 *            the str URL
+	 * @param requestFile
+	 *            the request file
+	 * @throws Throwable
+	 *             the throwable
+	 */
 	@When("^client request SampleInfo \"([^\"]*)\" with PID data \"([^\"]*)\"$")
-	public void ClientRequestPOSTWithJsondata(String strURL, String requestFile) throws Throwable {
+	public void clientRequestPOSTWithJsondata(String strURL, String requestFile) throws Throwable {
 		String baseUrl = handler.getRestConfig().getProperty("baseURL", true);
 		handler.getRestUtil().setUpRequest(requestFile, handler.getHeaderMap());
 		handler.invokeAPIUsingPost(baseUrl + strURL);
 	}
 
-	@And("^the Origin service returns ParticipantID PID based on participantId (\\d+)$")
-	public void validatepartcipantId(final int participantId) throws Throwable {
+	/**
+	 * Validate participant id.
+	 *
+	 * @param participantId
+	 *            the participant id
+	 * @throws Throwable
+	 *             the throwable
+	 */
+	@And("^the service returns ParticipantID PID based on participantId (\\d+)$")
+	public void validateParticipantId(final int participantId) throws Throwable {
 		Integer partcipantValue = JsonUtil.getInt(handler.getStrResponse(), "sampleInfo.participantId");
 		assertThat(partcipantValue, equalTo(participantId));
 	}
 
-	@And("^the service returns message \"([^\"]*)\" and \"([^\"]*)\"$")
-	public void validateSeverityTextMessage(final String severity, String text) throws Throwable {
-		String severityMessage = JsonUtil.getString(handler.getStrResponse(), "messages[0].severity");
-		String textMessage = JsonUtil.getString(handler.getStrResponse(), "messages[0].text");
-		assertThat(severityMessage, equalTo(severity));
-		assertThat(textMessage, equalTo(text));
-	}
-
+	/**
+	 * Validate text message.
+	 *
+	 * @param text
+	 *            the text
+	 * @throws Throwable
+	 *             the throwable
+	 */
 	@And("^the service returns message \"([^\"]*)\"$")
 	public void validateTextMessage(final String text) throws Throwable {
 		String textMessage = JsonUtil.getString(handler.getStrResponse(), "messages[0].text");
 		assertThat(textMessage, equalTo(text));
 	}
+
+	/**
+	 * Validate content type.
+	 *
+	 * @param type
+	 *            the type
+	 * @throws Throwable
+	 *             the throwable
+	 */
 	@And("^the service returns content type \"([^\"]*)\"$")
 	public void validateContentType(final String type) throws Throwable {
 		String contentType = handler.getRestUtil().getResponseHttpHeaders().getContentType().toString();
 		assertThat(contentType, equalTo(type));
 	}
 
+	/**
+	 * Clean up.
+	 *
+	 * @param scenario
+	 *            the scenario
+	 */
 	@After({})
 	public void cleanUp(Scenario scenario) {
 		handler.postProcess(scenario);
