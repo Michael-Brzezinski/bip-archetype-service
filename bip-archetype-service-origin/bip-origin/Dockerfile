@@ -1,4 +1,4 @@
-FROM docker-registry.default.svc:5000/openshift/serverjre:8
+FROM container-registry.dev8.bip.va.gov/bip/serverjre:8
 
 # Add a volume pointing to /tmp
 VOLUME /tmp
