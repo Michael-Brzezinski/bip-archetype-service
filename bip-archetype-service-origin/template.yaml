@@ -104,7 +104,7 @@ objects:
                 - containerPort: 8080
                   protocol: TCP
               resources:
-                requests:
+                limits:
                   cpu: 750m
                   memory: 1024Mi
               terminationMessagePath: /dev/termination-log
@@ -213,6 +213,8 @@ objects:
                   value: file:/secrets/va-cacerts/truststore.jks
                 - name: LOGGING_LEVEL_COM_ZAXXER_HIKARI
                   value: debug
+                - name: JAVA_TOOL_OPTIONS
+                  value: "-XX:+PrintFlagsFinal -XX:+UnlockCommercialFeatures -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMPercentage=70.0"
               volumeMounts:
                 - name: va-cacerts
                   mountPath: "/secrets/va-cacerts" 
