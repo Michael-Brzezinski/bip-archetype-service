@@ -34,10 +34,9 @@ mavenGitflowPipeline {
     /* Postman Testing Configuration */
    
    // Set of Postman test collections to execute. Required for Postman Testing stage to run.
-   // postmanTestCollections = [
-   //   'src/test/postman/collection.json',
-   //   'src/test/postman/collection2.json'
-   // ]
+   postmanTestCollections = [
+     'bip-origin-inttest/src/inttest/resources/bip-origin.postman_collection.json'
+   ]
 
    // Only run specified folder from collection. Optional. Runs all tests in collection if not specified
    // postmanFolder = 'smoke'

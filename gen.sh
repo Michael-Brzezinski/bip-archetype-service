@@ -128,6 +128,13 @@ function exit_now() {
 			# missing git remote
 			echo "ERROR: Your local archetype repo does not have a remote defined. Please add a remote read/write repo (usually 'origin')." 2>&1 | tee -a "$genLog"
 			echo "        Example: git remote add <repo-name> <url>" 2>&1 | tee -a "$genLog"
+		elif [ "$exit_code" -eq "24" ]; then
+			# One or more properties not set correctly
+			echo "ERROR: \"$propertiesFile\" has bad values for the following properties:" 2>&1 | tee -a "$genLog"
+			echo "artifactName should start with a letter and be alphanumeric." 2>&1 | tee -a "$genLog"
+			echo "artifactNameLowerCase should all be lower case." 2>&1 | tee -a "$genLog"
+			echo "artifactNameUpperCase should all be upper case." 2>&1 | tee -a "$genLog"
+			echo "        $invalidArtifactName" 2>&1 | tee -a "$genLog"
 		else
 			# some unexpected error
 			echo "ERROR: Unexpected error code: $exit_code ... aborting immediately. Check logs." 2>&1 | tee -a "$genLog"
@@ -313,16 +320,25 @@ function validate_properties() {
 
 	missingProperties=""
 	if [[ "$groupId" == "" ]]; then missingProperties+="groupId "; fi
-	if [[ "$artifactId" == "" ]]; then missingProperties+=( "artifactId " ); fi
-	if [[ "$version" == "" ]]; then missingProperties+=( "version " ); fi
-	if [[ "$artifactName" == "" ]]; then missingProperties+=( "artifactName " ); fi
-	if [[ "$artifactNameLowerCase" == "" ]]; then missingProperties+=( "artifactNameLowerCase " ); fi
-	if [[ "$artifactNameUpperCase" == "" ]]; then missingProperties+=( "artifactNameUpperCase " ); fi
-	if [[ "$servicePort" == "" ]]; then missingProperties+=( "servicePort " ); fi
-	if [[ "$projectNameSpacePrefix" == "" ]]; then missingProperties+=( "projectNameSpacePrefix " ); fi
+	if [[ "$artifactId" == "" ]]; then missingProperties+="artifactId "; fi
+	if [[ "$version" == "" ]]; then missingProperties+="version "; fi
+	if [[ "$artifactName" == "" ]]; then missingProperties+="artifactName "; fi
+	if [[ "$artifactNameLowerCase" == "" ]]; then missingProperties+="artifactNameLowerCase "; fi
+	if [[ "$artifactNameUpperCase" == "" ]]; then missingProperties+="artifactNameUpperCase "; fi
+	if [[ "$servicePort" == "" ]]; then missingProperties+="servicePort "; fi
+	if [[ "$projectNameSpacePrefix" == "" ]]; then missingProperties+="projectNameSpacePrefix "; fi
 
-	if [[ "$missingProperties" != "" ]]; then
+	if [[ $missingProperties != "" ]]; then
 		exit_now 6
+	fi
+
+	invalidArtifactName=""
+	if [[ !("$artifactName" =~ ^[a-zA-Z_$]{1}[a-zA-Z0-9_$]+$) ]]; then invalidArtifactName+="artifactName "; fi
+	if [[ !("$artifactNameLowerCase" =~ ^[a-z_$]{1}[a-z0-9_$]+$) ]]; then invalidArtifactName+="artifactNameLowerCase "; fi
+	if [[ !("$artifactNameUpperCase" =~ ^[A-Z_$]{1}[A-Z0-9_$]+$) ]]; then invalidArtifactName+="artifactNameUpperCase "; fi
+
+	if [[ $invalidArtifactName != "" ]]; then
+		exit_now 24
 	fi
 }
 
