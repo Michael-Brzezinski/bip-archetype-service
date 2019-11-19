@@ -139,6 +139,11 @@ objects:
                     configMapKeyRef:
                       name: ${IMAGE}-${BRANCH}-config
                       key: spring.cloud.vault.kv.application-name
+                - name: spring.cloud.consul.enabled
+                  valueFrom:
+                    configMapKeyRef:
+                      name: ${IMAGE}-${BRANCH}-config
+                      key: spring.cloud.consul.enabled
                 - name: spring.cloud.consul.config.enabled
                   valueFrom:
                     configMapKeyRef:
@@ -268,6 +273,7 @@ objects:
         app: ${APP_NAME}
         branch: ${BRANCH}
     data:
+      spring.cloud.consul.enabled: "true"
       spring.cloud.consul.config.enabled: "true"
       spring.cloud.consul.config.failFast: "true"
       spring.cloud.consul.discovery.enabled: "true"

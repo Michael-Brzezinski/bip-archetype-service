@@ -14,6 +14,7 @@
     enabled: false
     consulBackendEnabled: false
   consul:
+      enabled: false
       config:
         enabled: false
       discovery:
