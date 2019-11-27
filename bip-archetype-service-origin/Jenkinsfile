@@ -101,6 +101,7 @@ mavenGitflowPipeline {
     chartCredentialId = "github"
 
     //Value YAML file used to configure the Helm deployments used for functional and performance testing.
+    chartValueFile = "testing.yaml"
     chartValueFunctionalTestFile = "testing.yaml"
     chartValuePerformanceTestFile = "testing.yaml"
 
